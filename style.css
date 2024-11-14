@@ -1,0 +1,79 @@
+/* Set the overall styling and make it centered */
+body {
+    background-color: #181818;
+    color: #FF0033;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container with increased width and padding */
+.container {
+    text-align: center;
+    background-color: #282828;
+    padding: 40px;          /* Increased padding */
+    border-radius: 8px;
+    width: 60%;             /* Make container wider */
+    max-width: 800px;       /* Limit maximum width for readability */
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Styling for input fields */
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 12px;          /* Increased padding for larger inputs */
+    margin: 10px 0;         /* Increased spacing between elements */
+    background: #202020;
+    color: #FFFFFF;
+    border: 1px solid #404040;
+    border-radius: 4px;
+    font-size: 16px;        /* Larger font for readability */
+}
+
+/* Styling for slider */
+input[type="range"] {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Styling for the button with a hover effect */
+button {
+    background-color: #FF0033;
+    color: #FFFFFF;
+    border: none;
+    padding: 15px;          /* Increased padding for a larger button */
+    margin-top: 20px;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #FF1A47;
+}
+
+/* Styling for labels and additional spacing */
+label {
+    display: block;
+    margin-top: 20px;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+
+/* Styling for the result text */
+#result {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #FFFFFF;
+}
+
+/* Additional spacing for speed display */
+#speed-value {
+    margin-left: 10px;
+    font-size: 18px;
+    color: #FFFFFF;
+}
