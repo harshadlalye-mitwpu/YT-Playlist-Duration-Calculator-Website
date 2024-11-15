@@ -1,100 +1,241 @@
-/* Set the overall styling and make it centered */
+/* General Body Styling */
 body {
     background-color: #181818;
     color: #FF0033;
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-/* Container with increased width and padding */
-.container {
+body.light-mode {
+    background-color: #FFFFFF;
+    color: #FF0033;
+}
+
+/* Top Bar with Logo, Title, and Dark Mode Toggle */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%;
+    padding: 20px 0;
+}
+
+.logo {
+    width: 80px;
+    height: auto;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FF0033;
+    margin: 0;
     text-align: center;
-    background-color: #282828;
-    padding: 40px;          /* Increased padding */
-    border-radius: 8px;
-    width: 60%;             /* Make container wider */
-    max-width: 800px;       /* Limit maximum width for readability */
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
 }
 
-/* Styling for input fields */
-input[type="text"], input[type="number"] {
+.dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+#dark-mode-switch {
+    display: none;
+}
+
+.toggle-label {
+    width: 40px;
+    height: 20px;
+    background: #282828; /* Default dark mode background */
+    border-radius: 10px;
+    margin: 0 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle-label::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    background: #FF0033; /* Default knob color for dark mode */
+    border-radius: 50%;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+/* When the switch is checked (light mode) */
+#dark-mode-switch:checked + .toggle-label {
+    background: #F1F1F1; /* Light mode background */
+}
+
+#dark-mode-switch:checked + .toggle-label::before {
+    transform: translateX(20px); /* Moves knob to the right */
+    background: #181818; /* Knob color for light mode */
+}
+
+body.light-mode .toggle-label {
+    background: #E0E0E0;
+}
+
+body.light-mode .toggle-label::before {
+    background: #000000;
+}
+
+/* Divider Line Styling */
+.divider {
+    width: 90%;
+    border: 0;
+    height: 1px;
+    background: #404040;
+    margin: 20px 0;
+    transition: background 0.3s;
+}
+
+body.light-mode .divider {
+    background: #D0D0D0;
+}
+
+/* Main Container Styling */
+.container {
+    background-color: #282828;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+body.light-mode .container {
+    background-color: #F0F0F0;
+    box-shadow: 0px 0px 15px rgba(200, 200, 200, 0.6);
+}
+
+/* Input and Label Styling */
+label {
+    display: block;
+    font-size: 18px;
+    margin-top: 20px;
+    text-align: left;
     width: 100%;
-    padding: 12px;          /* Increased padding for larger inputs */
-    margin: 10px 0;         /* Increased spacing between elements */
+    color: #FFFFFF;
+    transition: color 0.3s;
+}
+
+body.light-mode label {
+    color: #000000;
+}
+
+input[type="text"],
+input[type="number"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    margin: 10px 0;
     background: #202020;
     color: #FFFFFF;
     border: 1px solid #404040;
     border-radius: 4px;
-    font-size: 16px;        /* Larger font for readability */
+    font-size: 16px;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* Styling for slider */
+body.light-mode input[type="text"],
+body.light-mode input[type="number"] {
+    background: #FFFFFF;
+    color: #000000;
+    border: 1px solid #CCCCCC;
+}
+
+.range-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
 input[type="range"] {
     width: 100%;
+    max-width: 500px;
     margin-top: 20px;
 }
 
-/* Styling for the button with a hover effect */
 button {
     background-color: #FF0033;
     color: #FFFFFF;
     border: none;
-    padding: 15px;          /* Increased padding for a larger button */
+    padding: 15px;
     margin-top: 20px;
     font-size: 18px;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 100%;
+    max-width: 200px;
 }
 
 button:hover {
     background-color: #FF1A47;
 }
 
-/* Styling for labels and additional spacing */
-label {
-    display: block;
-    margin-top: 20px;
-    font-size: 18px;
-    color: #FFFFFF;
+body.light-mode button {
+    background-color: #FF0033;
 }
 
-/* Styling for the result text */
+body.light-mode button:hover {
+    background-color: #FF1A47;
+}
+
+/* Result Text Styling */
 #result {
     margin-top: 20px;
     font-size: 20px;
     color: #FFFFFF;
+    transition: color 0.3s;
 }
 
-/* Additional spacing for speed display */
+body.light-mode #result {
+    color: #000000;
+}
+
 #speed-value {
-    margin-left: 10px;
     font-size: 18px;
     color: #FFFFFF;
+    transition: color 0.3s;
+}
+
+body.light-mode #speed-value {
+    color: #000000;
 }
 
 /* Spinner Styling */
 .spinner {
-    border: 4px solid rgba(255, 255, 255, 0.3); /* Light border */
-    border-top: 4px solid #FF0033;             /* Highlighted border */
-    border-radius: 50%;                        /* Make it round */
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #FF0033;
+    border-radius: 50%;
     width: 30px;
     height: 30px;
-    animation: spin 1s linear infinite;        /* Continuous spinning */
-    margin: 20px auto;                         /* Center alignment */
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
 }
 
-/* Spinner Animation */
 @keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+body.light-mode .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.2);
+    border-top: 4px solid #FF0033;
 }

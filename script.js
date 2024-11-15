@@ -15,8 +15,8 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
     }
 
     // Hide result and show spinner
-    document.getElementById("result").style.display = "none";
-    document.getElementById("loading-spinner").style.display = "block";
+    result.style.display = "none";
+    spinner.style.display = "block";
 
     let totalDuration;
     try {
@@ -30,15 +30,37 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
 
     // Hide spinner and display result
     const adjustedDuration = totalDuration / playbackSpeed;
-    document.getElementById("loading-spinner").style.display = "none";
-    document.getElementById("result").style.display = "block";
-    document.getElementById("result").innerText = `Total Duration: ${formatDuration(adjustedDuration)} at ${playbackSpeed}x speed`;
-
+    spinner.style.display = "none";
+    result.style.display = "block";
+    result.innerText = `Total Duration: ${formatDuration(adjustedDuration)} at ${playbackSpeed}x speed`;
 });
 
 document.getElementById("speed-slider").addEventListener("input", (e) => {
     document.getElementById("speed-value").innerText = `${e.target.value}x`;
 });
+
+// Select necessary elements
+const darkModeSwitch = document.getElementById("dark-mode-switch");
+const body = document.body;
+
+// Default mode (Dark Mode)
+body.classList.add("dark-mode"); // Ensure the body is in dark mode
+
+// Toggle light/dark mode on switch change
+darkModeSwitch.addEventListener("change", () => {
+    if (darkModeSwitch.checked) {
+        // Dark mode
+        body.classList.remove("light-mode");
+        body.classList.add("dark-mode");
+    } else {
+        // Light mode
+        body.classList.remove("dark-mode");
+        body.classList.add("light-mode");
+    }
+});
+
+
+
 
 
 async function fetchPlaylistDuration(playlistId, start, end, apiKey) {
@@ -73,7 +95,6 @@ async function fetchPlaylistDuration(playlistId, start, end, apiKey) {
     return totalDuration;
 }
 
-
 async function fetchVideoDuration(videoId, apiKey) {
     try {
         const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoId}&key=${apiKey}`);
@@ -90,7 +111,6 @@ async function fetchVideoDuration(videoId, apiKey) {
         return 0; // Skip the video in case of any error
     }
 }
-
 
 function parseISODuration(duration) {
     const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
