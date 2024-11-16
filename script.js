@@ -11,7 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
     updateSliderBackground(speedSlider);
 });
 
-// Update slider background dynamically when the slider value changes
+
+// Update Estimated Watch Time dynamically when slider value changes
+speedSlider.addEventListener("input", (e) => {
+    const playbackSpeed = parseFloat(e.target.value);
+    const estimatedWatchTimeElement = document.getElementById("est-watch-time-value");
+    if (totalDuration && !isNaN(playbackSpeed)) {
+        const estimatedWatchTime = totalDuration / playbackSpeed;
+        estimatedWatchTimeElement.innerText = formatDuration(estimatedWatchTime);
+    }
+});
+
+
 speedSlider.addEventListener("input", (e) => {
     updateSliderBackground(e.target);
     document.getElementById("speed-value").innerText = `${e.target.value}x`;
@@ -47,7 +58,39 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
         return;
     }
 
+    
+    // Fetch and display playlist info
+    const playlistNameElement = document.getElementById("playlist-name");
+    const playlistIdElement = document.getElementById("playlist-id");
+    const videoCountElement = document.getElementById("video-count");
+    const playlistInfoDiv = document.getElementById("playlist-info");
+
+    try {
+        const playlistDetails = await fetchPlaylistDetails(playlistId, API_KEY);
+        playlistNameElement.innerText = playlistDetails.title;
+        playlistIdElement.innerText = playlistId;
+        videoCountElement.innerText = playlistDetails.videoCount;
+        
+    // Calculate average video duration
+    const avgDuration = totalDuration / playlistDetails.videoCount;
+    document.getElementById("avg-duration").innerText = formatDuration(avgDuration);
+
+    // Calculate estimated watch time at selected speed
+    const estimatedWatchTime = totalDuration / playbackSpeed;
+    document.getElementById("est-watch-time").innerText = formatDuration(estimatedWatchTime);
+
+    // Fetch and display playlist creation/update date if available
+    document.getElementById("playlist-date").innerText = playlistDetails.creationDate || "Unavailable";
+
+    // Display the playlist info section
+    playlistInfoDiv.style.display = "block";
+    
+    } catch (error) {
+        console.error("Error fetching playlist details:", error);
+    }
+
     // Hide spinner and display result
+    
     const adjustedDuration = totalDuration / playbackSpeed;
     spinner.style.display = "none";
     result.style.display = "block";
@@ -56,15 +99,6 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
 
 document.getElementById("speed-slider").addEventListener("input", (e) => {
     document.getElementById("speed-value").innerText = `${e.target.value}x`;
-
-    const playbackSpeed = parseFloat(e.target.value);
-    document.getElementById("speed-value").innerText = `${playbackSpeed}x`;
-
-    // Update the total duration dynamically
-    if (totalDuration > 0) { // Only update if duration has been calculated
-        const adjustedDuration = totalDuration / playbackSpeed;
-        result.innerText = `Total Duration: ${formatDuration(adjustedDuration)} at ${playbackSpeed}x speed`;
-    }
 });
 
 // Select necessary elements
@@ -155,4 +189,32 @@ function formatDuration(seconds) {
 function extractPlaylistId(url) {
     const match = url.match(/[&?]list=([^&]+)/);
     return match ? match[1] : null;
+}
+
+async function fetchPlaylistDetails(playlistId, apiKey) {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&id=${playlistId}&key=${apiKey}`);
+    const data = await response.json();
+    if (data.items && data.items.length > 0) {
+        return {
+            title: data.items[0].snippet.title,
+            videoCount: data.items[0].contentDetails.itemCount
+        };
+    } else {
+        throw new Error("Playlist not found");
+    }
+}
+
+async function fetchPlaylistDetails(playlistId, apiKey) {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/playlists?part=snippet,contentDetails&id=${playlistId}&key=${apiKey}`);
+    const data = await response.json();
+    if (data.items && data.items.length > 0) {
+        const playlist = data.items[0];
+        return {
+            title: playlist.snippet.title,
+            videoCount: playlist.contentDetails.itemCount,
+            creationDate: playlist.snippet.publishedAt
+        };
+    } else {
+        throw new Error("Playlist not found");
+    }
 }

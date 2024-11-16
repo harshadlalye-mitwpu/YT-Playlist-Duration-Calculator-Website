@@ -2,7 +2,7 @@
 body {
     background-color: #181818;
     color: #FF0033;
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@ body.light-mode {
 }
 
 .title {
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
     color: #FF0033;
     margin: 0;
@@ -93,18 +93,19 @@ body.light-mode .toggle-label::before {
     background: #000000;
 }
 
-/* Divider Line Styling */
+/* -------------------------------- */
+/* Divider Styling                  */
+/* -------------------------------- */
 .divider {
     width: 90%;
     border: 0;
     height: 1px;
-    background: #404040;
+    background: linear-gradient(to right, transparent, #FF0033, transparent);
     margin: 20px 0;
-    transition: background 0.3s;
 }
 
 body.light-mode .divider {
-    background: #D0D0D0;
+    background: linear-gradient(to right, transparent, #FF0033, transparent);
 }
 
 /* Main Container Styling */
@@ -151,7 +152,7 @@ input[type="number"] {
     background: #202020;
     color: #FFFFFF;
     border: 1px solid #404040;
-    border-radius: 4px;
+    border-radius: 12px;
     font-size: 16px;
     transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
@@ -161,6 +162,7 @@ body.light-mode input[type="number"] {
     background: #FFFFFF;
     color: #000000;
     border: 1px solid #CCCCCC;
+    border-radius: 12px;
 }
 
 .range-input {
@@ -183,7 +185,7 @@ button {
     padding: 15px;
     margin-top: 20px;
     font-size: 18px;
-    border-radius: 4px;
+    border-radius: 12px;
     cursor: pointer;
     transition: background-color 0.3s;
     width: 100%;
@@ -192,6 +194,7 @@ button {
 
 button:hover {
     background-color: #FF1A47;
+    transform: scale(1.05); /* Slight hover effect */
 }
 
 body.light-mode button {
@@ -200,6 +203,17 @@ body.light-mode button {
 
 body.light-mode button:hover {
     background-color: #FF1A47;
+}
+
+#playlist-info {
+    margin-top: 20px;
+    font-size: 20px;
+    color: #FFFFFF;
+    transition: color 0.3s;
+}
+
+body.light-mode #playlist-info {
+    color: #000000;
 }
 
 /* Result Text Styling */
@@ -393,3 +407,4 @@ body.light-mode .instructions {
     color: #000000;
     box-shadow: 0px 0px 15px rgba(200, 200, 200, 0.6);
 }
+
