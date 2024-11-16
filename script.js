@@ -1,3 +1,22 @@
+const speedSlider = document.getElementById("speed-slider");
+
+// Function to update slider background
+function updateSliderBackground(slider) {
+    const value = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+    slider.style.setProperty("--value", `${value}%`);
+}
+
+// Initialize slider background on page load
+document.addEventListener("DOMContentLoaded", () => {
+    updateSliderBackground(speedSlider);
+});
+
+// Update slider background dynamically when the slider value changes
+speedSlider.addEventListener("input", (e) => {
+    updateSliderBackground(e.target);
+    document.getElementById("speed-value").innerText = `${e.target.value}x`;
+});
+
 document.getElementById("calculate-btn").addEventListener("click", async () => {
     const API_KEY = 'AIzaSyBIA7Y6din3kIGXS_GreO-Y0xWx27oGbGc';
     const playlistUrl = document.getElementById("playlist-link").value;
@@ -37,6 +56,15 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
 
 document.getElementById("speed-slider").addEventListener("input", (e) => {
     document.getElementById("speed-value").innerText = `${e.target.value}x`;
+
+    const playbackSpeed = parseFloat(e.target.value);
+    document.getElementById("speed-value").innerText = `${playbackSpeed}x`;
+
+    // Update the total duration dynamically
+    if (totalDuration > 0) { // Only update if duration has been calculated
+        const adjustedDuration = totalDuration / playbackSpeed;
+        result.innerText = `Total Duration: ${formatDuration(adjustedDuration)} at ${playbackSpeed}x speed`;
+    }
 });
 
 // Select necessary elements

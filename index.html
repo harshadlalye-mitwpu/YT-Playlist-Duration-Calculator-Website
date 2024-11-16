@@ -20,7 +20,7 @@
             <input type="checkbox" id="dark-mode-switch" checked>
             <label for="dark-mode-switch" class="toggle-label"></label>
             <span>🌜</span>
-        </div>        
+        </div>
     </div>
 
     <hr class="divider">
@@ -37,13 +37,26 @@
         </div>
 
         <label for="speed-slider">Playback Speed:</label>
-        <input type="range" id="speed-slider" min="0.25" max="2" step="0.25" value="1">
-        <span id="speed-value">1x</span><br>
+        <div class="slider-container">
+            <input type="range" id="speed-slider" min="0.25" max="2" step="0.25" value="1">
+            <span id="speed-value">1x</span>
+        </div>
 
         <button id="calculate-btn">Calculate Duration</button>
         <p id="result" style="display: none;">Total Duration: </p>
         <div id="loading-spinner" class="spinner" style="display: none;"></div>
     </div>
+    <div class="instructions">
+        <h2>How to Use:</h2>
+        <ul>
+            <li><strong>Enter Playlist URL:</strong> Copy and paste the URL of the YouTube playlist into the "Enter Playlist URL" field.</li>
+            <li><strong>Set Start and End Videos (Optional):</strong> Specify the range of videos you want to calculate by entering start and end numbers. Leave blank to include the entire playlist.</li>
+            <li><strong>Adjust Playback Speed:</strong> Use the slider to choose the playback speed (e.g., 1x, 1.25x).</li>
+            <li><strong>Click "Calculate Duration":</strong> Press the button to calculate the total playlist duration based on your inputs.</li>
+            <li>The duration will display below the button, with adjustments based on playback speed.</li>
+        </ul>
+    </div>
+    
 
     <script src="script.js"></script>
 </body>

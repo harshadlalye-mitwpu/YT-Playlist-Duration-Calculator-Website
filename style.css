@@ -50,7 +50,8 @@ body.light-mode {
 .toggle-label {
     width: 40px;
     height: 20px;
-    background: #282828; /* Default dark mode background */
+    background: #282828;
+    /* Default dark mode background */
     border-radius: 10px;
     margin: 0 10px;
     position: relative;
@@ -65,19 +66,23 @@ body.light-mode {
     left: 2px;
     width: 16px;
     height: 16px;
-    background: #FF0033; /* Default knob color for dark mode */
+    background: #FF0033;
+    /* Default knob color for dark mode */
     border-radius: 50%;
     transition: transform 0.3s, background-color 0.3s;
 }
 
 /* When the switch is checked (light mode) */
-#dark-mode-switch:checked + .toggle-label {
-    background: #F1F1F1; /* Light mode background */
+#dark-mode-switch:checked+.toggle-label {
+    background: #F1F1F1;
+    /* Light mode background */
 }
 
-#dark-mode-switch:checked + .toggle-label::before {
-    transform: translateX(20px); /* Moves knob to the right */
-    background: #181818; /* Knob color for light mode */
+#dark-mode-switch:checked+.toggle-label::before {
+    transform: translateX(20px);
+    /* Moves knob to the right */
+    background: #181818;
+    /* Knob color for light mode */
 }
 
 body.light-mode .toggle-label {
@@ -231,11 +236,160 @@ body.light-mode #speed-value {
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 body.light-mode .spinner {
     border: 4px solid rgba(0, 0, 0, 0.2);
     border-top: 4px solid #FF0033;
+}
+
+/* Slider Container */
+.slider-container {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    margin-top: 20px;
+}
+
+/* Slider Track Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(to right, #FF0033 0%, #FF0033 var(--value, 42.8571428571%), #202020 var(--value, 42.8571428571%), #202020 100%);
+    /* Set default unfilled track color for dark mode */
+    border-radius: 3px;
+    outline: none;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+body.light-mode input[type="range"] {
+    background: linear-gradient(to right, #FF0033 0%, #FF0033 var(--value, 42.8571428571%), #CCCCCC var(--value, 42.8571428571%), #CCCCCC 100%);
+    /* Use light gray for unfilled track in light mode */
+}
+
+/* Slider Thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: #FF0033;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: #FF0033;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+input[type="range"]::-moz-range-progress {
+    background: #FF0033;
+}
+
+input[type="range"]::-moz-range-track {
+    background: #202020;
+    height: 6px;
+    border-radius: 3px;
+}
+
+body.light-mode input[type="range"]::-moz-range-track {
+    background: #CCCCCC;
+}
+
+input[type="range"]::-ms-thumb {
+    width: 16px;
+    height: 16px;
+    background: #FF0033;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-ms-fill-lower {
+    background: #FF0033;
+}
+
+input[type="range"]::-ms-fill-upper {
+    background: #202020;
+}
+
+body.light-mode input[type="range"]::-ms-fill-upper {
+    background: #CCCCCC;
+}
+
+.instructions {
+    background-color: #282828;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    width: 90%;
+    max-width: 600px;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 1.6;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.instructions h2 {
+    color: #FF0033;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.instructions ul {
+    padding-left: 20px;
+    list-style: none;
+    /* Remove default bullet styling */
+}
+
+.instructions li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 25px;
+    /* Add space for the triangle */
+}
+
+
+.instructions li::before {
+    content: "►";
+    /* Triangle symbol */
+    position: absolute;
+    left: 0;
+    /* Position triangle to the left of the text */
+    top: 0;
+    color: #FFFFFF;
+    font-size: 16px;
+    /* Adjust size as needed */
+    line-height: 1.6;
+    /* Align with text */
+}
+
+
+body.light-mode .instructions li::before {
+    color: #000000;
+}
+
+body.light-mode .instructions {
+    background-color: #F0F0F0;
+    color: #000000;
+    box-shadow: 0px 0px 15px rgba(200, 200, 200, 0.6);
 }
