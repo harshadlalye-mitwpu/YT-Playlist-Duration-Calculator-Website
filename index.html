@@ -43,35 +43,39 @@
         </div>
 
         <button id="calculate-btn">Calculate Duration</button>
-        <div id="playlist-preview" style="display: none;">
-            <h2>Playlist Preview:</h2>
-            <ul id="preview-list"></ul>
-        </div>        
-        
-    
-    <div id="playlist-info" style="display: none;">
-        <p><strong>Playlist Name:</strong> <span id="playlist-name"></span></p>
-        <p><strong>Playlist ID:</strong> <span id="playlist-id"></span></p>
-        <p><strong>Number of Videos:</strong> <span id="video-count"></span></p>
-        <p><strong>Average Video Duration:</strong> <span id="avg-duration"></span></p>
-        <p><strong>Estimated Watch Time (at selected speed):</strong> <span id="est-watch-time"></span></p>
-        <p><strong>Playlist Creation/Last Updated:</strong> <span id="playlist-date"></span></p>
-    </div>
-    <p id="result" style="display: none;">Total Duration: </p>
-    
+
+        <div id="playlist-info" style="display: none;">
+            <p><strong>Playlist Name:</strong> <span id="playlist-name"></span></p>
+            <p><strong>Creator Name:</strong> <span id="creator-name"></span></p>
+            <p><strong>Number of Videos:</strong> <span id="video-count"></span></p>
+            <p><strong>Average Video Duration:</strong> <span id="avg-duration"></span></p>
+            <p><strong>Playlist Creation:</strong> <span id="playlist-creation-date"></span></p>
+            <p><strong>Last Updated:</strong> <span id="playlist-update-date"></span></p>
+            <p><strong>Total Duration:</strong> <span id="total-duration"></span></p>
+            <p><strong>Estimated Watch Time:</strong> <span id="est-watch-time"></span></p>
+        </div>
+
         <div id="loading-spinner" class="spinner" style="display: none;"></div>
     </div>
+
     <div class="instructions">
         <h2>How to Use:</h2>
         <ul>
-            <li><strong>Enter Playlist URL:</strong> Copy and paste the URL of the YouTube playlist into the "Enter Playlist URL" field.</li>
-            <li><strong>Set Start and End Videos (Optional):</strong> Specify the range of videos you want to calculate by entering start and end numbers. Leave blank to include the entire playlist.</li>
-            <li><strong>Adjust Playback Speed:</strong> Use the slider to choose the playback speed (e.g., 1x, 1.25x).</li>
-            <li><strong>Click "Calculate Duration":</strong> Press the button to calculate the total playlist duration based on your inputs.</li>
-            <li>The duration will display below the button, with adjustments based on playback speed.</li>
+            <li><strong>Enter Playlist URL:</strong> Copy and paste the URL of the YouTube playlist into the "Enter
+                Playlist URL" field.</li>
+            <li><strong>Set Start and End Videos (Optional):</strong> Specify the range of videos you want to calculate
+                by entering start and end numbers. Leave blank to include the entire playlist.</li>
+            <li><strong>Adjust Playback Speed:</strong> Use the slider to choose the playback speed (e.g., 1x, 1.25x).
+            </li>
+            <li><strong>Click "Calculate Duration":</strong> Press the button to calculate the total playlist duration
+                based on your inputs.</li>
+            <li>The playlist information, including <strong>Playlist Name</strong>, <strong>Creator Name</strong>,
+                <strong>No. of Videos</strong>, <strong>Average Video Duration</strong>, <strong>Playlist
+                    Creation</strong>, <strong>Last Updated</strong>, <strong>Total Duration</strong>, and
+                <strong>Estimated Watch Time</strong> at the selected speed, will be displayed.
+            </li>
         </ul>
     </div>
-    
 
     <script src="script.js"></script>
 </body>

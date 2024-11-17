@@ -93,9 +93,7 @@ body.light-mode .toggle-label::before {
     background: #000000;
 }
 
-/* -------------------------------- */
-/* Divider Styling                  */
-/* -------------------------------- */
+/* Divider Styling */
 .divider {
     width: 90%;
     border: 0;
@@ -162,7 +160,6 @@ body.light-mode input[type="number"] {
     background: #FFFFFF;
     color: #000000;
     border: 1px solid #CCCCCC;
-    border-radius: 12px;
 }
 
 .range-input {
@@ -194,7 +191,8 @@ button {
 
 button:hover {
     background-color: #FF1A47;
-    transform: scale(1.05); /* Slight hover effect */
+    transform: scale(1.05);
+    /* Slight hover effect */
 }
 
 body.light-mode button {
@@ -247,6 +245,9 @@ body.light-mode #speed-value {
     height: 30px;
     animation: spin 1s linear infinite;
     margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @keyframes spin {
@@ -372,31 +373,24 @@ body.light-mode input[type="range"]::-ms-fill-upper {
 .instructions ul {
     padding-left: 20px;
     list-style: none;
-    /* Remove default bullet styling */
 }
 
 .instructions li {
     position: relative;
     margin-bottom: 10px;
     padding-left: 25px;
-    /* Add space for the triangle */
 }
 
-
+/* Triangle symbol for list items */
 .instructions li::before {
     content: "►";
-    /* Triangle symbol */
     position: absolute;
     left: 0;
-    /* Position triangle to the left of the text */
     top: 0;
     color: #FFFFFF;
     font-size: 16px;
-    /* Adjust size as needed */
     line-height: 1.6;
-    /* Align with text */
 }
-
 
 body.light-mode .instructions li::before {
     color: #000000;
@@ -407,4 +401,3 @@ body.light-mode .instructions {
     color: #000000;
     box-shadow: 0px 0px 15px rgba(200, 200, 200, 0.6);
 }
-
