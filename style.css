@@ -1,4 +1,6 @@
-/* General Body Styling */
+/* ===================================
+   General Body Styling
+=================================== */
 body {
     background-color: #181818;
     color: #FF0033;
@@ -8,14 +10,19 @@ body {
     flex-direction: column;
     align-items: center;
     transition: background-color 0.3s, color 0.3s;
+    /* Smooth transitions */
 }
 
+/* Light mode styling */
 body.light-mode {
     background-color: #FFFFFF;
     color: #FF0033;
 }
 
-/* Top Bar with Logo, Title, and Dark Mode Toggle */
+/* ===================================
+   Top Bar Styling
+=================================== */
+/* Top bar container */
 .top-bar {
     display: flex;
     align-items: center;
@@ -24,11 +31,13 @@ body.light-mode {
     padding: 20px 0;
 }
 
+/* Logo styling */
 .logo {
     width: 80px;
     height: auto;
 }
 
+/* Title styling */
 .title {
     font-size: 36px;
     font-weight: bold;
@@ -37,21 +46,25 @@ body.light-mode {
     text-align: center;
 }
 
+/* ===================================
+   Dark Mode Toggle Styling
+=================================== */
 .dark-mode-toggle {
     display: flex;
     align-items: center;
     font-size: 24px;
 }
 
+/* Hide the actual checkbox */
 #dark-mode-switch {
     display: none;
 }
 
+/* Toggle switch background */
 .toggle-label {
     width: 40px;
     height: 20px;
     background: #282828;
-    /* Default dark mode background */
     border-radius: 10px;
     margin: 0 10px;
     position: relative;
@@ -59,6 +72,7 @@ body.light-mode {
     transition: background 0.3s;
 }
 
+/* Toggle switch knob */
 .toggle-label::before {
     content: '';
     position: absolute;
@@ -67,22 +81,18 @@ body.light-mode {
     width: 16px;
     height: 16px;
     background: #FF0033;
-    /* Default knob color for dark mode */
     border-radius: 50%;
     transition: transform 0.3s, background-color 0.3s;
 }
 
-/* When the switch is checked (light mode) */
+/* Light mode styles for toggle */
 #dark-mode-switch:checked+.toggle-label {
     background: #F1F1F1;
-    /* Light mode background */
 }
 
 #dark-mode-switch:checked+.toggle-label::before {
     transform: translateX(20px);
-    /* Moves knob to the right */
     background: #181818;
-    /* Knob color for light mode */
 }
 
 body.light-mode .toggle-label {
@@ -93,7 +103,9 @@ body.light-mode .toggle-label::before {
     background: #000000;
 }
 
-/* Divider Styling */
+/* ===================================
+   Divider Styling
+=================================== */
 .divider {
     width: 90%;
     border: 0;
@@ -106,7 +118,10 @@ body.light-mode .divider {
     background: linear-gradient(to right, transparent, #FF0033, transparent);
 }
 
-/* Main Container Styling */
+/* ===================================
+   Main Container Styling
+=================================== */
+/* Outer container for inputs and results */
 .container {
     background-color: #282828;
     padding: 30px;
@@ -126,7 +141,10 @@ body.light-mode .container {
     box-shadow: 0px 0px 15px rgba(200, 200, 200, 0.6);
 }
 
-/* Input and Label Styling */
+/* ===================================
+   Input and Label Styling
+=================================== */
+/* Label styles */
 label {
     display: block;
     font-size: 18px;
@@ -141,6 +159,7 @@ body.light-mode label {
     color: #000000;
 }
 
+/* Text and number inputs */
 input[type="text"],
 input[type="number"] {
     width: 100%;
@@ -162,6 +181,7 @@ body.light-mode input[type="number"] {
     border: 1px solid #CCCCCC;
 }
 
+/* Range input container */
 .range-input {
     display: flex;
     flex-direction: column;
@@ -169,12 +189,9 @@ body.light-mode input[type="number"] {
     align-items: center;
 }
 
-input[type="range"] {
-    width: 100%;
-    max-width: 500px;
-    margin-top: 20px;
-}
-
+/* ===================================
+   Button Styling
+=================================== */
 button {
     background-color: #FF0033;
     color: #FFFFFF;
@@ -184,7 +201,7 @@ button {
     font-size: 18px;
     border-radius: 12px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
     width: 100%;
     max-width: 200px;
 }
@@ -203,6 +220,9 @@ body.light-mode button:hover {
     background-color: #FF1A47;
 }
 
+/* ===================================
+   Playlist Information Styling
+=================================== */
 #playlist-info {
     margin-top: 20px;
     font-size: 20px;
@@ -214,7 +234,9 @@ body.light-mode #playlist-info {
     color: #000000;
 }
 
-/* Result Text Styling */
+/* ===================================
+   Result Text Styling
+=================================== */
 #result {
     margin-top: 20px;
     font-size: 20px;
@@ -226,6 +248,9 @@ body.light-mode #result {
     color: #000000;
 }
 
+/* ===================================
+   Speed Value Styling
+=================================== */
 #speed-value {
     font-size: 18px;
     color: #FFFFFF;
@@ -236,7 +261,9 @@ body.light-mode #speed-value {
     color: #000000;
 }
 
-/* Spinner Styling */
+/* ===================================
+   Spinner Styling
+=================================== */
 .spinner {
     border: 4px solid rgba(255, 255, 255, 0.3);
     border-top: 4px solid #FF0033;
@@ -265,7 +292,10 @@ body.light-mode .spinner {
     border-top: 4px solid #FF0033;
 }
 
-/* Slider Container */
+/* ===================================
+   Slider Container Styling
+=================================== */
+/* Slider container */
 .slider-container {
     width: 100%;
     max-width: 500px;
@@ -273,14 +303,13 @@ body.light-mode .spinner {
     margin-top: 20px;
 }
 
-/* Slider Track Styling */
+/* Range slider */
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 6px;
     background: linear-gradient(to right, #FF0033 0%, #FF0033 var(--value, 42.8571428571%), #202020 var(--value, 42.8571428571%), #202020 100%);
-    /* Set default unfilled track color for dark mode */
     border-radius: 3px;
     outline: none;
     transition: background 0.3s;
@@ -289,10 +318,9 @@ input[type="range"] {
 
 body.light-mode input[type="range"] {
     background: linear-gradient(to right, #FF0033 0%, #FF0033 var(--value, 42.8571428571%), #CCCCCC var(--value, 42.8571428571%), #CCCCCC 100%);
-    /* Use light gray for unfilled track in light mode */
 }
 
-/* Slider Thumb */
+/* Slider thumb */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -308,49 +336,9 @@ input[type="range"]::-webkit-slider-thumb:hover {
     transform: scale(1.2);
 }
 
-input[type="range"]::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: #FF0033;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-input[type="range"]::-moz-range-progress {
-    background: #FF0033;
-}
-
-input[type="range"]::-moz-range-track {
-    background: #202020;
-    height: 6px;
-    border-radius: 3px;
-}
-
-body.light-mode input[type="range"]::-moz-range-track {
-    background: #CCCCCC;
-}
-
-input[type="range"]::-ms-thumb {
-    width: 16px;
-    height: 16px;
-    background: #FF0033;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-input[type="range"]::-ms-fill-lower {
-    background: #FF0033;
-}
-
-input[type="range"]::-ms-fill-upper {
-    background: #202020;
-}
-
-body.light-mode input[type="range"]::-ms-fill-upper {
-    background: #CCCCCC;
-}
-
+/* ===================================
+   Instructions Section Styling
+=================================== */
 .instructions {
     background-color: #282828;
     padding: 20px;
@@ -362,31 +350,33 @@ body.light-mode input[type="range"]::-ms-fill-upper {
     font-size: 16px;
     line-height: 1.6;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
+/* Instructions title */
 .instructions h2 {
     color: #FF0033;
     margin-bottom: 10px;
     font-size: 20px;
 }
 
+/* Instructions list */
 .instructions ul {
     padding-left: 20px;
     list-style: none;
 }
 
+/* List items with custom triangle symbol */
 .instructions li {
     position: relative;
     margin-bottom: 10px;
     padding-left: 25px;
 }
 
-/* Triangle symbol for list items */
 .instructions li::before {
     content: "►";
     position: absolute;
     left: 0;
-    top: 0;
     color: #FFFFFF;
     font-size: 16px;
     line-height: 1.6;

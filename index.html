@@ -2,9 +2,20 @@
 <html lang="en">
 
 <head>
+    <!-- Meta Information -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate YouTube playlist duration easily with playback speed adjustments.">
+    <meta name="keywords" content="YouTube, playlist, duration calculator, playback speed">
+    <meta property="og:title" content="YouTube Playlist Duration Calculator">
+    <meta property="og:description" content="Calculate YouTube playlist durations with ease!">
+    <meta property="og:image" content="images/image.png">
+
+
+    <!-- Page Title -->
     <title>YT Playlist Duration Calculator</title>
+
+    <!-- Stylesheet and Favicon Links -->
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon_io/apple-touch-icon.png">
@@ -12,9 +23,15 @@
 </head>
 
 <body class="dark-mode">
+    <!-- Top Bar -->
     <div class="top-bar">
+        <!-- Logo -->
         <img src="images/Logo_Transparent.png" alt="Logo" class="logo">
-        <h1 class="title">Playlist Duration Calculator</h1>
+
+        <!-- Title -->
+        <h1 class="title">YouTube Playlist Duration Calculator</h1>
+
+        <!-- Dark Mode Toggle -->
         <div class="dark-mode-toggle">
             <span>🌞</span>
             <input type="checkbox" id="dark-mode-switch" checked>
@@ -23,12 +40,16 @@
         </div>
     </div>
 
+    <!-- Divider -->
     <hr class="divider">
 
+    <!-- Main Content -->
     <div class="container">
+        <!-- Playlist URL Input -->
         <label for="playlist-link">Enter Playlist URL:</label>
         <input type="text" id="playlist-link" placeholder="Enter YouTube playlist URL">
 
+        <!-- Start and End Video Range -->
         <div class="range-input">
             <label>Start Video:</label>
             <input type="number" id="start-video" min="1" placeholder="Start">
@@ -36,14 +57,17 @@
             <input type="number" id="end-video" min="1" placeholder="End">
         </div>
 
+        <!-- Playback Speed Slider -->
         <label for="speed-slider">Playback Speed:</label>
         <div class="slider-container">
             <input type="range" id="speed-slider" min="0.25" max="2" step="0.25" value="1">
             <span id="speed-value">1x</span>
         </div>
 
+        <!-- Calculate Button -->
         <button id="calculate-btn">Calculate Duration</button>
 
+        <!-- Playlist Information (Hidden by Default) -->
         <div id="playlist-info" style="display: none;">
             <p><strong>Playlist Name:</strong> <span id="playlist-name"></span></p>
             <p><strong>Creator Name:</strong> <span id="creator-name"></span></p>
@@ -55,9 +79,11 @@
             <p><strong>Estimated Watch Time:</strong> <span id="est-watch-time"></span></p>
         </div>
 
+        <!-- Loading Spinner (Hidden by Default) -->
         <div id="loading-spinner" class="spinner" style="display: none;"></div>
     </div>
 
+    <!-- Instructions Section -->
     <div class="instructions">
         <h2>How to Use:</h2>
         <ul>
@@ -77,6 +103,7 @@
         </ul>
     </div>
 
+    <!-- JavaScript -->
     <script src="script.js"></script>
 </body>
 
