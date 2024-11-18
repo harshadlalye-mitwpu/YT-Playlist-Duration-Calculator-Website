@@ -149,6 +149,47 @@ async function fetchVideoDuration(videoId, apiKey) {
 }
 
 // ================================
+// Dark Mode Toggle with LocalStorage
+// ================================
+
+/**
+ * Apply the saved theme from localStorage or default to dark mode.
+ */
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "light") {
+        body.classList.add("light-mode");
+        body.classList.remove("dark-mode");
+        darkModeSwitch.checked = false; // Ensure toggle is updated
+    } else {
+        body.classList.add("dark-mode");
+        body.classList.remove("light-mode");
+        darkModeSwitch.checked = true; // Ensure toggle is updated
+    }
+}
+
+/**
+ * Toggle the theme and save the preference in localStorage.
+ */
+function toggleTheme() {
+    if (darkModeSwitch.checked) {
+        body.classList.add("dark-mode");
+        body.classList.remove("light-mode");
+        localStorage.setItem("theme", "dark");
+    } else {
+        body.classList.add("light-mode");
+        body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+    }
+}
+
+// Apply saved theme on page load
+applySavedTheme();
+
+// Listen for changes on the dark mode toggle switch
+darkModeSwitch.addEventListener("change", toggleTheme);
+
+// ================================
 // Event Listeners and Handlers
 // ================================
 
@@ -191,12 +232,6 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
     } finally {
         spinner.style.display = "none";
     }
-});
-
-// Dark mode toggle
-darkModeSwitch.addEventListener("change", () => {
-    body.classList.toggle("light-mode", !darkModeSwitch.checked);
-    body.classList.toggle("dark-mode", darkModeSwitch.checked);
 });
 
 // ================================
