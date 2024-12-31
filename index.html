@@ -4,7 +4,7 @@
 <head>
     <!-- Meta Information -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Calculate YouTube playlist duration easily with playback speed adjustments.">
     <meta name="keywords" content="YouTube, playlist, duration calculator, playback speed">
     <meta property="og:title" content="YouTube Playlist Duration Calculator">
@@ -24,7 +24,7 @@
 
 <body class="dark-mode">
     <!-- Top Bar -->
-    <div class="top-bar">
+    <div class="top-bar" role="banner">
         <!-- Logo -->
         <img src="images/Logo_Transparent.png" alt="Logo" class="logo">
 
@@ -32,43 +32,51 @@
         <h1 class="title">YouTube Playlist Duration Calculator</h1>
 
         <!-- Dark Mode Toggle -->
-        <div class="dark-mode-toggle">
+        <div class="dark-mode-toggle" aria-label="Dark Mode Toggle">
             <span>🌞</span>
-            <input type="checkbox" id="dark-mode-switch" checked>
+            <input type="checkbox" id="dark-mode-switch" aria-label="Toggle dark mode" checked>
             <label for="dark-mode-switch" class="toggle-label"></label>
             <span>🌜</span>
         </div>
+
+        <!-- Language Selection -->
+        <label for="language-select" class="sr-only">Select Language</label>
+        <select id="language-select" onchange="switchLanguage(this.value)" aria-label="Select Language">
+            <option value="en">English</option>
+            <!-- Add more language options here -->
+        </select>
     </div>
 
     <!-- Divider -->
     <hr class="divider">
 
     <!-- Main Content -->
-    <div class="container">
+    <main class="container" role="main">
         <!-- Playlist URL Input -->
-        <label for="playlist-link">Enter Playlist URL:</label>
-        <input type="text" id="playlist-link" placeholder="Enter YouTube playlist URL">
+        <label id="label-playlist-link" for="playlist-link">Enter Playlist URL:</label>
+        <input type="text" id="playlist-link" placeholder="Enter YouTube playlist URL" aria-required="true">
 
         <!-- Start and End Video Range -->
         <div class="range-input">
-            <label>Start Video:</label>
+            <label id="label-start-video" for="start-video">Start Video:</label>
             <input type="number" id="start-video" min="1" placeholder="Start">
-            <label>End Video:</label>
+            <label id="label-end-video" for="end-video">End Video:</label>
             <input type="number" id="end-video" min="1" placeholder="End">
         </div>
 
         <!-- Playback Speed Slider -->
-        <label for="speed-slider">Playback Speed:</label>
+        <label id="label-speed-slider" for="speed-slider">Playback Speed:</label>
         <div class="slider-container">
-            <input type="range" id="speed-slider" min="0.25" max="2" step="0.25" value="1">
+            <input type="range" id="speed-slider" min="0.25" max="2" step="0.25" value="1" aria-valuemin="0.25" aria-valuemax="2" aria-valuenow="1" aria-label="Playback Speed">
             <span id="speed-value">1x</span>
         </div>
 
         <!-- Calculate Button -->
-        <button id="calculate-btn">Calculate Duration</button>
+        <button id="calculate-btn" aria-label="Calculate Duration">Calculate Duration</button>
 
         <!-- Playlist Information (Hidden by Default) -->
         <div id="playlist-info" style="display: none;">
+            <img id="playlist-thumbnail" src="" alt="Playlist Thumbnail" style="width: 100%; max-width: 300px; margin-bottom: 20px;">
             <p><strong>Playlist Name:</strong> <span id="playlist-name"></span></p>
             <p><strong>Creator Name:</strong> <span id="creator-name"></span></p>
             <p><strong>Number of Videos:</strong> <span id="video-count"></span></p>
@@ -79,29 +87,36 @@
             <p><strong>Estimated Watch Time:</strong> <span id="est-watch-time"></span></p>
         </div>
 
+        <!-- Detailed Statistics (Hidden by Default) -->
+        <div id="detailed-statistics" style="display: none; margin-top: 20px;">
+            <p><strong>Daily Watch Time:</strong> <span id="daily-watch-time"></span></p>
+            <p><strong>Weekly Watch Time:</strong> <span id="weekly-watch-time"></span></p>
+            <p><strong>Monthly Watch Time:</strong> <span id="monthly-watch-time"></span></p>
+        </div>
+
+        <!-- Download Report Buttons (Hidden by Default) -->
+        <div id="download-report-container" style="display: none; margin-top: 20px;">
+            <button id="download-pdf-btn">Download PDF Report</button>
+            <button id="download-csv-btn">Download CSV Report</button>
+        </div>
+
+        <!-- Shareable Link Container (Hidden by Default) -->
+        <div id="shareable-link-container" style="display: none; margin-top: 20px;">
+            <label id="label-shareable-link" for="shareable-link">Shareable Link:</label>
+            <input type="text" id="shareable-link" readonly style="width: 100%; max-width: 500px;">
+        </div>
+
         <!-- Loading Spinner (Hidden by Default) -->
-        <div id="loading-spinner" class="spinner" style="display: none;"></div>
-    </div>
+        <div id="loading-spinner" class="spinner" style="display: none;" role="status" aria-label="Loading"></div>
+    </main>
 
     <!-- Instructions Section -->
-    <div class="instructions">
-        <h2>How to Use:</h2>
-        <ul>
-            <li><strong>Enter Playlist URL:</strong> Copy and paste the URL of the YouTube playlist into the "Enter
-                Playlist URL" field.</li>
-            <li><strong>Set Start and End Videos (Optional):</strong> Specify the range of videos you want to calculate
-                by entering start and end numbers. Leave blank to include the entire playlist.</li>
-            <li><strong>Adjust Playback Speed:</strong> Use the slider to choose the playback speed (e.g., 1x, 1.25x).
-            </li>
-            <li><strong>Click "Calculate Duration":</strong> Press the button to calculate the total playlist duration
-                based on your inputs.</li>
-            <li>The playlist information, including <strong>Playlist Name</strong>, <strong>Creator Name</strong>,
-                <strong>No. of Videos</strong>, <strong>Average Video Duration</strong>, <strong>Playlist
-                    Creation</strong>, <strong>Last Updated</strong>, <strong>Total Duration</strong>, and
-                <strong>Estimated Watch Time</strong> at the selected speed, will be displayed.
-            </li>
+    <section class="instructions" aria-labelledby="how-to-use">
+        <h2 id="how-to-use">How to Use:</h2>
+        <ul id="instructions-list">
+            <!-- Instructions will be dynamically populated -->
         </ul>
-    </div>
+    </section>
 
     <!-- JavaScript -->
     <script src="script.js"></script>

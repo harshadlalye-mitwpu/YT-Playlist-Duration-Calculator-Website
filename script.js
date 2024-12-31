@@ -77,6 +77,7 @@ async function fetchPlaylistDetails(playlistId, apiKey) {
             videoCount: playlist.contentDetails.itemCount,
             creationDate: playlist.snippet.publishedAt,
             lastUpdated: playlist.snippet.localized.lastUpdated,
+            thumbnail: playlist.snippet.thumbnails.high.url // Add thumbnail URL
         };
     } else {
         throw new Error("Playlist not found");
@@ -190,6 +191,59 @@ applySavedTheme();
 darkModeSwitch.addEventListener("change", toggleTheme);
 
 // ================================
+// Language Support
+// ================================
+
+const translations = {
+    en: {
+        enterPlaylistUrl: "Enter Playlist URL:",
+        startVideo: "Start Video:",
+        endVideo: "End Video:",
+        playbackSpeed: "Playback Speed:",
+        calculateDuration: "Calculate Duration",
+        playlistName: "Playlist Name:",
+        creatorName: "Creator Name:",
+        numberOfVideos: "Number of Videos:",
+        avgVideoDuration: "Average Video Duration:",
+        playlistCreation: "Playlist Creation:",
+        lastUpdated: "Last Updated:",
+        totalDuration: "Total Duration:",
+        estimatedWatchTime: "Estimated Watch Time:",
+        shareableLink: "Shareable Link:",
+        howToUse: "How to Use:",
+        instructions: [
+            "Enter Playlist URL: Copy and paste the URL of the YouTube playlist into the \"Enter Playlist URL\" field.",
+            "Set Start and End Videos (Optional): Specify the range of videos you want to calculate by entering start and end numbers. Leave blank to include the entire playlist.",
+            "Adjust Playback Speed: Use the slider to choose the playback speed (e.g., 1x, 1.25x).",
+            "Click \"Calculate Duration\": Press the button to calculate the total playlist duration based on your inputs.",
+            "The playlist information, including Playlist Name, Creator Name, No. of Videos, Average Video Duration, Playlist Creation, Last Updated, Total Duration, and Estimated Watch Time at the selected speed, will be displayed."
+        ]
+    },
+    // Add more languages here
+};
+
+function switchLanguage(lang) {
+    document.getElementById("label-playlist-link").innerText = translations[lang].enterPlaylistUrl;
+    document.getElementById("label-start-video").innerText = translations[lang].startVideo;
+    document.getElementById("label-end-video").innerText = translations[lang].endVideo;
+    document.getElementById("label-speed-slider").innerText = translations[lang].playbackSpeed;
+    document.getElementById("calculate-btn").innerText = translations[lang].calculateDuration;
+    document.getElementById("label-shareable-link").innerText = translations[lang].shareableLink;
+    document.getElementById("how-to-use").innerText = translations[lang].howToUse;
+
+    const instructionsList = document.getElementById("instructions-list");
+    instructionsList.innerHTML = "";
+    translations[lang].instructions.forEach(instruction => {
+        const li = document.createElement("li");
+        li.innerText = instruction;
+        instructionsList.appendChild(li);
+    });
+}
+
+// Set default language to English
+switchLanguage("en");
+
+// ================================
 // Event Listeners and Handlers
 // ================================
 
@@ -226,13 +280,98 @@ document.getElementById("calculate-btn").addEventListener("click", async () => {
 
         // Display fetched details
         displayPlaylistDetails(playlistDetails, totalDuration, playbackSpeed);
+
+        // Generate shareable link
+        generateShareableLink(playlistUrl, startVideo, endVideo, playbackSpeed);
+
+        // Display detailed statistics
+        displayDetailedStatistics(totalDuration, playbackSpeed);
+
+        // Enable download report buttons
+        document.getElementById("download-report-container").style.display = "block";
     } catch (error) {
         console.error(error);
-        result.innerText = "An error occurred while calculating duration.";
+        if (error.message === "Playlist not found") {
+            result.innerText = "The playlist could not be found. Please check the URL and try again.";
+        } else if (error.message.includes("NetworkError")) {
+            result.innerText = "Network error occurred. Please check your internet connection and try again.";
+        } else {
+            result.innerText = "An error occurred while calculating duration. Please try again later.";
+        }
     } finally {
         spinner.style.display = "none";
     }
 });
+
+/**
+ * Generate a shareable link for the calculated duration.
+ * @param {string} playlistUrl - The playlist URL.
+ * @param {number} startVideo - The starting video index.
+ * @param {number} endVideo - The ending video index.
+ * @param {number} playbackSpeed - The selected playback speed.
+ */
+function generateShareableLink(playlistUrl, startVideo, endVideo, playbackSpeed) {
+    const baseUrl = window.location.href.split('?')[0];
+    const params = new URLSearchParams({
+        playlistUrl,
+        startVideo,
+        endVideo,
+        playbackSpeed
+    });
+    const shareableLink = `${baseUrl}?${params.toString()}`;
+    document.getElementById("shareable-link").value = shareableLink;
+    document.getElementById("shareable-link-container").style.display = "block";
+}
+
+/**
+ * Download the report in PDF format.
+ */
+function downloadPDFReport() {
+    const doc = new jsPDF();
+    doc.text("YouTube Playlist Duration Report", 10, 10);
+    doc.text(`Playlist Name: ${document.getElementById("playlist-name").innerText}`, 10, 20);
+    doc.text(`Creator Name: ${document.getElementById("creator-name").innerText}`, 10, 30);
+    doc.text(`Number of Videos: ${document.getElementById("video-count").innerText}`, 10, 40);
+    doc.text(`Average Video Duration: ${document.getElementById("avg-duration").innerText}`, 10, 50);
+    doc.text(`Total Duration: ${document.getElementById("total-duration").innerText}`, 10, 60);
+    doc.text(`Estimated Watch Time: ${document.getElementById("est-watch-time").innerText}`, 10, 70);
+    doc.text(`Daily Watch Time: ${document.getElementById("daily-watch-time").innerText}`, 10, 80);
+    doc.text(`Weekly Watch Time: ${document.getElementById("weekly-watch-time").innerText}`, 10, 90);
+    doc.text(`Monthly Watch Time: ${document.getElementById("monthly-watch-time").innerText}`, 10, 100);
+    doc.save("playlist_duration_report.pdf");
+}
+
+/**
+ * Download the report in CSV format.
+ */
+function downloadCSVReport() {
+    const csvContent = [
+        ["YouTube Playlist Duration Report"],
+        ["Playlist Name", document.getElementById("playlist-name").innerText],
+        ["Creator Name", document.getElementById("creator-name").innerText],
+        ["Number of Videos", document.getElementById("video-count").innerText],
+        ["Average Video Duration", document.getElementById("avg-duration").innerText],
+        ["Total Duration", document.getElementById("total-duration").innerText],
+        ["Estimated Watch Time", document.getElementById("est-watch-time").innerText],
+        ["Daily Watch Time", document.getElementById("daily-watch-time").innerText],
+        ["Weekly Watch Time", document.getElementById("weekly-watch-time").innerText],
+        ["Monthly Watch Time", document.getElementById("monthly-watch-time").innerText]
+    ].map(e => e.join(",")).join("\n");
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", "playlist_duration_report.csv");
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Add event listeners for download buttons
+document.getElementById("download-pdf-btn").addEventListener("click", downloadPDFReport);
+document.getElementById("download-csv-btn").addEventListener("click", downloadCSVReport);
 
 // ================================
 // UI Display Functions
@@ -250,6 +389,10 @@ function displayPlaylistDetails(details, totalDuration, playbackSpeed) {
     document.getElementById("video-count").innerText = details.videoCount;
     document.getElementById("avg-duration").innerText = formatDuration(totalDuration / details.videoCount);
 
+    // Display playlist thumbnail
+    document.getElementById("playlist-thumbnail").src = details.thumbnail;
+    document.getElementById("playlist-thumbnail").alt = details.title;
+
     // Check for separate creation and update dates
     if (details.creationDate && details.lastUpdated && details.creationDate !== details.lastUpdated) {
         document.getElementById("playlist-creation-date").innerText = details.creationDate;
@@ -263,4 +406,22 @@ function displayPlaylistDetails(details, totalDuration, playbackSpeed) {
     document.getElementById("est-watch-time").innerText = `(at ${playbackSpeed}x speed) ${formatDuration(totalDuration / playbackSpeed)}`;
 
     playlistInfoDiv.style.display = "block";
+}
+
+/**
+ * Display detailed statistics for the total duration.
+ * @param {number} totalDuration - Total playlist duration in seconds.
+ * @param {number} playbackSpeed - Selected playback speed.
+ */
+function displayDetailedStatistics(totalDuration, playbackSpeed) {
+    const totalDurationAdjusted = totalDuration / playbackSpeed;
+    const dailyWatchTime = totalDurationAdjusted / 7;
+    const weeklyWatchTime = totalDurationAdjusted / 4;
+    const monthlyWatchTime = totalDurationAdjusted / 12;
+
+    document.getElementById("daily-watch-time").innerText = formatDuration(dailyWatchTime);
+    document.getElementById("weekly-watch-time").innerText = formatDuration(weeklyWatchTime);
+    document.getElementById("monthly-watch-time").innerText = formatDuration(monthlyWatchTime);
+
+    document.getElementById("detailed-statistics").style.display = "block";
 }
