@@ -50,7 +50,7 @@ function parseISODuration(duration) {
 function formatDuration(seconds) {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
-    const secs = seconds % 60;
+    const secs = (seconds % 60).toFixed(0);
     return `${hrs}h ${mins}m ${secs}s`;
 }
 
@@ -77,7 +77,7 @@ async function fetchPlaylistDetails(playlistId, apiKey) {
             videoCount: playlist.contentDetails.itemCount,
             creationDate: playlist.snippet.publishedAt,
             lastUpdated: playlist.snippet.localized.lastUpdated,
-            thumbnail: playlist.snippet.thumbnails.high.url // Add thumbnail URL
+            thumbnail: playlist.snippet.thumbnails.high.url // Correct thumbnail URL
         };
     } else {
         throw new Error("Playlist not found");
@@ -217,9 +217,129 @@ const translations = {
             "Adjust Playback Speed: Use the slider to choose the playback speed (e.g., 1x, 1.25x).",
             "Click \"Calculate Duration\": Press the button to calculate the total playlist duration based on your inputs.",
             "The playlist information, including Playlist Name, Creator Name, No. of Videos, Average Video Duration, Playlist Creation, Last Updated, Total Duration, and Estimated Watch Time at the selected speed, will be displayed."
-        ]
+        ],
+        placeholders: {
+            playlistUrl: "Enter YouTube playlist URL",
+            startVideo: "Start",
+            endVideo: "End"
+        }
     },
-    // Add more languages here
+    es: {
+        enterPlaylistUrl: "Ingrese la URL de la lista de reproducción:",
+        startVideo: "Video de inicio:",
+        endVideo: "Video final:",
+        playbackSpeed: "Velocidad de reproducción:",
+        calculateDuration: "Calcular duración",
+        playlistName: "Nombre de la lista de reproducción:",
+        creatorName: "Nombre del creador:",
+        numberOfVideos: "Número de videos:",
+        avgVideoDuration: "Duración promedio del video:",
+        playlistCreation: "Creación de la lista de reproducción:",
+        lastUpdated: "Última actualización:",
+        totalDuration: "Duración total:",
+        estimatedWatchTime: "Tiempo estimado de visualización:",
+        shareableLink: "Enlace compartible:",
+        howToUse: "Cómo usar:",
+        instructions: [
+            "Ingrese la URL de la lista de reproducción: Copie y pegue la URL de la lista de reproducción de YouTube en el campo \"Ingrese la URL de la lista de reproducción\".",
+            "Establecer videos de inicio y final (opcional): Especifique el rango de videos que desea calcular ingresando los números de inicio y final. Deje en blanco para incluir toda la lista de reproducción.",
+            "Ajustar velocidad de reproducción: Use el control deslizante para elegir la velocidad de reproducción (por ejemplo, 1x, 1.25x).",
+            "Haga clic en \"Calcular duración\": Presione el botón para calcular la duración total de la lista de reproducción según sus entradas.",
+            "Se mostrará la información de la lista de reproducción, incluido el nombre de la lista de reproducción, el nombre del creador, el número de videos, la duración promedio del video, la creación de la lista de reproducción, la última actualización, la duración total y el tiempo estimado de visualización a la velocidad seleccionada."
+        ],
+        placeholders: {
+            playlistUrl: "Ingrese la URL de la lista de reproducción de YouTube",
+            startVideo: "Inicio",
+            endVideo: "Fin"
+        }
+    },
+    zh: {
+        enterPlaylistUrl: "输入播放列表网址：",
+        startVideo: "开始视频：",
+        endVideo: "结束视频：",
+        playbackSpeed: "播放速度：",
+        calculateDuration: "计算时长",
+        playlistName: "播放列表名称：",
+        creatorName: "创作者名称：",
+        numberOfVideos: "视频数量：",
+        avgVideoDuration: "平均视频时长：",
+        playlistCreation: "播放列表创建：",
+        lastUpdated: "最后更新：",
+        totalDuration: "总时长：",
+        estimatedWatchTime: "预计观看时间：",
+        shareableLink: "可分享链接：",
+        howToUse: "使用方法：",
+        instructions: [
+            "输入播放列表网址：将 YouTube 播放列表的网址复制并粘贴到“输入播放列表网址”字段中。",
+            "设置开始和结束视频（可选）：通过输入开始和结束编号来指定要计算的视频范围。留空以包括整个播放列表。",
+            "调整播放速度：使用滑块选择播放速度（例如，1x，1.25x）。",
+            "点击“计算时长”：按下按钮，根据您的输入计算播放列表的总时长。",
+            "将显示播放列表信息，包括播放列表名称、创作者名称、视频数量、平均视频时长、播放列表创建、最后更新、总时长和所选速度下的预计观看时间。"
+        ],
+        placeholders: {
+            playlistUrl: "输入 YouTube 播放列表网址",
+            startVideo: "开始",
+            endVideo: "结束"
+        }
+    },
+    hi: {
+        enterPlaylistUrl: "प्लेलिस्ट URL दर्ज करें:",
+        startVideo: "प्रारंभ वीडियो:",
+        endVideo: "समाप्त वीडियो:",
+        playbackSpeed: "प्लेबैक गति:",
+        calculateDuration: "अवधि की गणना करें",
+        playlistName: "प्लेलिस्ट का नाम:",
+        creatorName: "निर्माता का नाम:",
+        numberOfVideos: "वीडियो की संख्या:",
+        avgVideoDuration: "औसत वीडियो अवधि:",
+        playlistCreation: "प्लेलिस्ट निर्माण:",
+        lastUpdated: "अंतिम अपडेट:",
+        totalDuration: "कुल अवधि:",
+        estimatedWatchTime: "अनुमानित देखने का समय:",
+        shareableLink: "साझा करने योग्य लिंक:",
+        howToUse: "कैसे उपयोग करें:",
+        instructions: [
+            "प्लेलिस्ट URL दर्ज करें: YouTube प्लेलिस्ट के URL को \"प्लेलिस्ट URL दर्ज करें\" फ़ील्ड में कॉपी और पेस्ट करें।",
+            "प्रारंभ और समाप्त वीडियो सेट करें (वैकल्पिक): प्रारंभ और समाप्त संख्या दर्ज करके आप जिस वीडियो रेंज की गणना करना चाहते हैं उसे निर्दिष्ट करें। पूरी प्लेलिस्ट को शामिल करने के लिए खाली छोड़ दें।",
+            "प्लेबैक गति समायोजित करें: प्लेबैक गति चुनने के लिए स्लाइडर का उपयोग करें (उदाहरण के लिए, 1x, 1.25x)।",
+            "क्लिक करें \"अवधि की गणना करें\": बटन दबाएं, आपकी प्रविष्टियों के आधार पर प्लेलिस्ट की कुल अवधि की गणना करने के लिए।",
+            "प्लेलिस्ट की जानकारी प्रदर्शित की जाएगी, जिसमें प्लेलिस्ट का नाम, निर्माता का नाम, वीडियो की संख्या, औसत वीडियो अवधि, प्लेलिस्ट निर्माण, अंतिम अपडेट, कुल अवधि और चयनित गति पर अनुमानित देखने का समय शामिल है।"
+        ],
+        placeholders: {
+            playlistUrl: "YouTube प्लेलिस्ट URL दर्ज करें",
+            startVideo: "प्रारंभ",
+            endVideo: "समाप्त"
+        }
+    },
+    ar: {
+        enterPlaylistUrl: "أدخل رابط قائمة التشغيل:",
+        startVideo: "فيديو البداية:",
+        endVideo: "فيديو النهاية:",
+        playbackSpeed: "سرعة التشغيل:",
+        calculateDuration: "احسب المدة",
+        playlistName: "اسم قائمة التشغيل:",
+        creatorName: "اسم المنشئ:",
+        numberOfVideos: "عدد مقاطع الفيديو:",
+        avgVideoDuration: "متوسط مدة الفيديو:",
+        playlistCreation: "إنشاء قائمة التشغيل:",
+        lastUpdated: "آخر تحديث:",
+        totalDuration: "المدة الإجمالية:",
+        estimatedWatchTime: "وقت المشاهدة المقدر:",
+        shareableLink: "رابط قابل للمشاركة:",
+        howToUse: "كيفية الاستخدام:",
+        instructions: [
+            "أدخل رابط قائمة التشغيل: انسخ والصق رابط قائمة تشغيل YouTube في حقل \"أدخل رابط قائمة التشغيل\".",
+            "تعيين مقاطع الفيديو البداية والنهاية (اختياري): حدد نطاق مقاطع الفيديو التي تريد حسابها عن طريق إدخال أرقام البداية والنهاية. اتركه فارغًا لتضمين قائمة التشغيل بأكملها.",
+            "اضبط سرعة التشغيل: استخدم شريط التمرير لاختيار سرعة التشغيل (مثل 1x، 1.25x).",
+            "انقر فوق \"احسب المدة\": اضغط على الزر لحساب المدة الإجمالية لقائمة التشغيل بناءً على مدخلاتك.",
+            "سيتم عرض معلومات قائمة التشغيل، بما في ذلك اسم قائمة التشغيل، واسم المنشئ، وعدد مقاطع الفيديو، ومتوسط مدة الفيديو، وإنشاء قائمة التشغيل، وآخر تحديث، والمدة الإجمالية، ووقت المشاهدة المقدر بالسرعة المحددة."
+        ],
+        placeholders: {
+            playlistUrl: "أدخل رابط قائمة تشغيل YouTube",
+            startVideo: "بداية",
+            endVideo: "نهاية"
+        }
+    }
 };
 
 function switchLanguage(lang) {
@@ -238,6 +358,11 @@ function switchLanguage(lang) {
         li.innerText = instruction;
         instructionsList.appendChild(li);
     });
+
+    // Update placeholders
+    document.getElementById("playlist-link").placeholder = translations[lang].placeholders.playlistUrl;
+    document.getElementById("start-video").placeholder = translations[lang].placeholders.startVideo;
+    document.getElementById("end-video").placeholder = translations[lang].placeholders.endVideo;
 }
 
 // Set default language to English

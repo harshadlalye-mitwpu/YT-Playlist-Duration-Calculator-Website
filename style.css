@@ -400,6 +400,26 @@ body.light-mode .instructions {
     box-shadow: 0px 0px 15px rgba(200, 200, 200, 0.6);
 }
 
+/* ===================================
+   Language Dropdown Styling
+=================================== */
+#language-select {
+    background-color: #282828;
+    color: #FFFFFF;
+    border: 1px solid #404040;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+
+body.light-mode #language-select {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 1px solid #CCCCCC;
+}
+
 /* Screen reader-only text */
 .sr-only {
     position: absolute;
