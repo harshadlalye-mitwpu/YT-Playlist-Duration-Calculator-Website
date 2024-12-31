@@ -8,6 +8,8 @@ A responsive web application that allows users to calculate the total duration o
 - **Adjustable Playback Speed**: Select different playback speeds (0.25x to 2x) and view the adjusted duration.
 - **Video Range Selection**: Specify a start and end video number within the playlist to calculate the duration of a selected range.
 - **Responsive Layout**: The interface is styled to use screen space effectively, with a YouTube-like dark theme and branded color scheme.
+- **Language Support**: Switch between different languages for the interface.
+- **Download Report**: Download the playlist duration report in PDF or CSV format.
 
 ## Technologies Used
 
@@ -41,6 +43,8 @@ A responsive web application that allows users to calculate the total duration o
 2. **Set Video Range** (optional): Enter the start and end video numbers within the playlist to calculate a subset. Leave empty to calculate the entire playlist duration.
 3. **Adjust Playback Speed**: Use the slider to select a speed, and view the adjusted duration.
 4. **Calculate Duration**: Click "Calculate Duration" to see the total or adjusted playlist duration.
+5. **Switch Language**: Use the language dropdown to switch the interface language.
+6. **Download Report**: Click the "Download PDF Report" or "Download CSV Report" button to download the report.
 
 ## Code Overview
 
@@ -55,7 +59,6 @@ A responsive web application that allows users to calculate the total duration o
 
 ## Screenshot
 ![alt text](image.png)
-
 
 ## Deployment
 
